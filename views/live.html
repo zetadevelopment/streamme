@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Live</title>
+    <script src="/socket.io/socket.io.js">
+    </script>
+  </head>
+  <body>
+    <video autoplay controls muted></video>
+    <h2></h2>
+    <script src="/js/camRecorder.js">
+    </script>
+    <script>
+      let rec = new CamRecorder({ video: true, audio: true });
+      rec.videoElement = document.querySelector('video');
+      rec.startMedia();
+      setInterval(() => { document.querySelector('h2').innerHTML = (rec.sentData / 1048576.0) + ' megabytes sent' }, 100);
+    </script>
+  </body>
+</html>
+

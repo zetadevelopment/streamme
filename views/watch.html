@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Watch</title>
+    <script src="/socket.io/socket.io.js">
+    </script>
+  </head>
+  <body>
+    <video autoplay controls></video>
+    <h2></h2>
+    <script>
+      let socket = io();
+      let receivedData = 0;
+      socket.on('live', function(data) {
+        //let data = new Uint8Array(atob(a).split(',').map((value) => parseInt(value)));
+        receivedData += data.byteLength;
+        document.querySelector('h2').innerHTML = (receivedData / 1048576.0) + ' megabytes received.';
+        let video = document.querySelector('video');
+/*        let ms = new MediaSource();
+
+        ms.addEventListener('sourceopen', function(e) {
+          let sourceBuffer = this.addSourceBuffer('video/webm;codecs=opus,vp8');
+          sourceBuffer.appendBuffer(data);
+        }, false);
+
+        video.src = URL.createObjectURL(ms);*/
+
+        let videoData = new Blob([data], { type: 'video/webm;codecs=opus,vp8' });
+        let url = URL.createObjectURL(videoData);
+        video.src = url;
+        video.onended = function(e) {
+          URL.revokeObjectURL(video.src);
+        };
+        video.play();
+      });
+    </script>
+  </body>
+</html>

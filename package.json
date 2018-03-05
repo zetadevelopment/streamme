@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "lzjb": "0.0.4",
+    "restify": "^6.3.4",
+    "socket.io": "^2.0.4"
+  }
+}
