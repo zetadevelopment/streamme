@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "start": "node server.js"
+  },
   "dependencies": {
     "lzjb": "0.0.4",
     "restify": "^6.3.4",
