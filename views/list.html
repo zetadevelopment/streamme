@@ -1,0 +1,40 @@
+<html lang="en">
+    <meta charset="utf-8" />
+    <title>Room list. Select the view you want to see</title>
+    <script src="/js/zepto.min.js"></script>
+    <script>
+      $(document).on('ready', (evt) => {
+        const roomListQuery = () => {
+          $.getJSON('/rooms', (data) => {
+            const container = document.querySelector('#roomlist');
+
+            // If there is someone online.
+            if (data.whoislive != null) {
+              const ul = document.createElement('ul');
+
+              Object.keys(data.whoislive.sockets).forEach((element) => {
+                const li = document.createElement('li');
+                const url = "/watch/" + element.trim();
+                li.innerHTML = "<a href='" + url + "' target='_blank'>" + element + "</a>";
+                ul.appendChild(li);
+              });
+
+              container.innerHTML = '';
+              container.appendChild(ul);
+            } else {
+              container.innerHTML = '';
+            }
+          });
+        };
+
+        roomListQuery();
+        setInterval(roomListQuery, 5000);
+      });
+    </script>
+  </head>
+  <body>
+    <marquee>List updated every 5 seconds</marquee>
+    <div id="roomlist">
+    </div>
+  </body>
+</html>

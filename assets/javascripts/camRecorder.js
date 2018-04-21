@@ -10,6 +10,8 @@ window.CamRecorder = class CamRecorder {
     this.video = null;
     this.mediaRecorder = null;
     this.recorderIntervalId = null;
+
+    this.socket.emit('transmission', true);
   }
 
   set videoElement(htmlElement) {
