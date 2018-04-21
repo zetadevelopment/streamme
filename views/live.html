@@ -16,9 +16,6 @@
       rec.videoElement = document.querySelector('video');
       rec.startMedia();
       setInterval(() => { document.querySelector('h2').innerHTML = (rec.sentData / 1048576.0) + ' megabytes sent' }, 100);
-
-      // When page is unloaded, tell Socket.io to get me out of the live room list.
-      window.onunload = () => rec.socket.emit('endTransmission');
     </script>
   </body>
 </html>

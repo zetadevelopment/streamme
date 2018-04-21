@@ -7,22 +7,23 @@
         const roomListQuery = () => {
           $.getJSON('/rooms', (data) => {
             const container = document.querySelector('#roomlist');
-            const ul = document.createElement('ul');
 
-            // Clean container.
-            container.innerHTML = '';
+            // If there is someone online.
+            if (data.whoislive != null) {
+              const ul = document.createElement('ul');
 
-            // Build list of connected users that are doing livestreaming.
-            data.forEach((element) => {
-              const li = document.createElement('li');
-              const url = "/watch/" + element.trim();
-              li.innerHTML = "<a href='" + url + "' target='_blank'>" + element + "</a>";
-              ul.appendChild(li);
-            });
+              Object.keys(data.whoislive.sockets).forEach((element) => {
+                const li = document.createElement('li');
+                const url = "/watch/" + element.trim();
+                li.innerHTML = "<a href='" + url + "' target='_blank'>" + element + "</a>";
+                ul.appendChild(li);
+              });
 
-            // if the list is not empty, append it to the container.
-            if (ul.children.length > 0)
+              container.innerHTML = '';
               container.appendChild(ul);
+            } else {
+              container.innerHTML = '';
+            }
           });
         };
 
