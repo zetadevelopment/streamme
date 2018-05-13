@@ -37,7 +37,7 @@ window.CamRecorder = class CamRecorder {
           this.mediaRecorder.stop();
           this.mediaRecorder.start();
         }
-      }, 2000);
+      }, 3000);
 
     }
   }
