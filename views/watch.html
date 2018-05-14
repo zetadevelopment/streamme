@@ -24,10 +24,20 @@
         room = prompt('Enter room Id');
       }
 
+      // Connect to desired room
       socket.emit('joinRoom', { name: room });
 
+      window.onbeforeunload = () => {
+        socket.emit('disconnectViewer', { name: room });
+      };
+
+      socket.on('liveEnd', () => {
+        document.querySelector('video').pause();
+        document.querySelector('video').disabled = true;
+        document.querySelector('h2').innerHTML = 'Transmission over';
+      });
+
       socket.on('live', function(data) {
-        //let data = new Uint8Array(atob(a).split(',').map((value) => parseInt(value)));
         receivedData += data.byteLength;
 
         document.querySelector('h2').innerHTML = (receivedData / 1048576.0) + ' megabytes received.';

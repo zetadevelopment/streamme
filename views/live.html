@@ -8,6 +8,7 @@
   </head>
   <body>
     <video autoplay controls muted></video>
+    <p><span id="views">0</span>/<span id="viewsTotal">0</span></p>
     <h2></h2>
     <script src="/js/camRecorder.js">
     </script>
@@ -19,6 +20,18 @@
 
       // When page is unloaded, tell Socket.io to get me out of the live room list.
       window.onunload = () => rec.socket.emit('endTransmission');
+
+      rec.socket.on('newViewer', () => {
+        let currentViews = document.querySelector('#views').innerText;
+          let totalViews = document.querySelector('#viewsTotal').innerText;
+          document.querySelector('#views').innerText = parseInt(currentViews) + 1;
+          document.querySelector('#viewsTotal').innerText = parseInt(totalViews) + 1;
+      });
+
+      rec.socket.on('lessViewer', () => {
+        let currentViews = document.querySelector('#views').innerText;
+        document.querySelector('#views').innerText = parseInt(currentViews) - 1;
+      });
     </script>
   </body>
 </html>

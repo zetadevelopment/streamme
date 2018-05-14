@@ -60,15 +60,24 @@ io.sockets.on('connection', (socket) => {
 
   socket.on('endTransmission', (_) => {
     console.log('Transmission ended by socket id', socket.id);
+    io.of(socket.id).emit('liveEnd', true); // Tell viewers that transmission has ended.
     socket.leave('whoislive');
   });
 
+  // We have a new watch.
   socket.on('joinRoom', (data) => {
     socket.join(data.name);
+    socket.to(data.name).emit('newViewer', true); //Viewer count.
   });
 
+  // When a video blob is received, emit it to all viewers.
   socket.on('video', (data) => {
     socket.to(socket.id).volatile.emit('live', data);
+  });
+
+  // When a viewer leaves, reduce the viewer counter.
+  socket.on('disconnectViewer', (data) => {
+    socket.to(data.name).emit('lessViewer', true);
   });
 });
 
