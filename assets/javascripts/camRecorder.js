@@ -45,7 +45,7 @@ window.CamRecorder = class CamRecorder {
   startRecording(stream) {
     // (Youtube) Live encoding settings for videoBit rate https://support.google.com/youtube/answer/2853702?hl=en
     // (Adobe) https://www.adobe.com/devnet/adobe-media-server/articles/dynstream_live/popup.html
-    this.mediaRecorder = new MediaRecorder(stream, { mimeType: 'video/webm;codecs=opus,vp8',
+    this.mediaRecorder = new MediaRecorder(stream, { mimeType: 'video/webm;codecs=vp8,opus',
                                                      audioBitsPerSecond: 128000, // 128 Kbit/sec
                                                      videoBitsPerSecond: 2000000 /* 2Mbit/sec */ });
 

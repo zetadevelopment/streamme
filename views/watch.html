@@ -16,6 +16,8 @@
       // if location is /watch/roomId123, then split will generate: ['', 'watch', 'roomId123']
       // TODO: find a MUCH better approach for this gross hack.
       let room;
+      let blobData = [];
+
       const paths = window.location.pathname.split('/');
 
       if (paths.length === 3) {
@@ -43,17 +45,9 @@
         document.querySelector('h2').innerHTML = (receivedData / 1048576.0) + ' megabytes received.';
 
         let video = document.querySelector('video');
-        let ms = new MediaSource();
 
-        ms.addEventListener('sourceopen', function(e) {
-          let sourceBuffer = this.addSourceBuffer('video/webm;codecs=opus,vp8');
-          sourceBuffer.appendBuffer(data);
-        }, false);
-
-        video.src = URL.createObjectURL(ms);
-        video.onended = function(e) {
-          URL.revokeObjectURL(video.src);
-        };
+        video.src = URL.createObjectURL(new Blob([data], { type: 'video/webm;codecs=vp8' }));
+        video.onended = () => URL.revokeObjectURL(video.src);
 
         video.play();
       });
