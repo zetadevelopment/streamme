@@ -33,6 +33,7 @@ sub.on('error', function(err) {
 // Routes depending on global elements, like socket.io object.
 server.get('/rooms', function (req, res, next) {
   res.setHeader('Content-Type', 'text/json');
+  res.setHeader("Access-Control-Allow-Origin", "*");
   res.writeHead(200);
 
   // More idiomatic way to retrieve connected clients that are doing live streaming.
@@ -60,7 +61,7 @@ io.sockets.on('connection', (socket) => {
 
   socket.on('endTransmission', (_) => {
     console.log('Transmission ended by socket id', socket.id);
-    io.of(socket.id).emit('liveEnd', true); // Tell viewers that transmission has ended.
+    io.to(socket.id).emit('liveEnd', true); // Tell viewers that transmission has ended.
     socket.leave('whoislive');
   });
 
