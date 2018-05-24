@@ -1,0 +1,46 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>New Content</title>
+    <style>
+      #container {
+        position: absolute;
+        left: 35%;
+        top: 10%;
+        border: 1px solid;
+        padding: 2em;
+      }
+
+      h1 {
+        text-align: center;
+      }
+
+      label {
+        padding-left: 0.5em;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <h1>New Content</h1>
+      <form action="/content/new" method="POST" enctype="multipart/form-data">
+        <p>
+          <label for="contentName">Content Name:</label>
+          <input type="text" name="contentName" id="contentName" placeholder="ContentName.mp4" required /><br />
+        </p>
+        <p>
+          <label for="private">Is private content&quest;</label>
+          <input type="checkbox" name="private" id="private" /><br />
+        </p>
+        <p>
+          <label for="Content file">Content file:</label>
+          <input type="file" name="content" id="content" accept="audio/*,video/webm,video/mp4" required /><br />
+        <br />
+        </p>
+        <p>
+          <input type="submit" value="Upload new Content" /><button onclick="location.href = '/content/list/';">See Content List</button>
+        </p>
+      </form>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,79 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Premium Login</title>
+    <style>
+      #container, #register {
+        position: absolute;
+        left: 35%;
+        top: 10%;
+        border: 1px solid;
+        padding: 2em;
+      }
+
+      .error {
+        color: red;
+      }
+
+      h1 {
+        text-align: center;
+      }
+
+      h2 {
+        font-size: 12pt;
+        font-weight: bold;
+      }
+
+
+      label {
+        padding-left: 0.5em;
+      }
+    </style>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const error = location.search.split('=');
+        const h2 = document.querySelector('h2');
+        if(error.length > 1) {
+          h2.innerHTML = decodeURIComponent(error[1]);
+        } else {
+          h2.innerHTML = '';
+        }
+      });
+
+      function toggleFormTo(register) {
+        if (register) {
+          document.querySelector('#container').style = 'display: none;';
+          document.querySelector('#register').style = 'display: block;';
+        } else {
+          document.querySelector('#register').style = 'display: none;';
+          document.querySelector('#container').style = 'display: block;';
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div id="container" style="display: block;">
+      <h1>Premium Login</h1>
+      <h2 class="error"></h2>
+      <form method="POST" action="/auth">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" placeholder="username" required /><br /><br />
+        <label for="password">Password:</label>
+        <input type="password" name="password" placeholder="password" required /><br /><br />
+        <input type="submit" value="Login" /><button onclick="toggleFormTo(true); return false;">Register</button>
+      </form>
+    </div>
+    <div id="register" style="display: none;">
+      <h1>Premium Login<br />Create Account</h1>
+      <form method="POST" action="/auth/new">
+        <label for="username">Username:</label>
+        <input type="text" name="username" id="username" placeholder="username" required /><br /><br />
+        <label for="password">Password:</label>
+        <input type="password" name="password" placeholder="password" required /><br /><br />
+        <label for="email">E-mail:</label>
+        <input type="email" name="email" placeholder="email@example.com" required /><br /><br />
+        <input type="submit" value="Create new user" /><button onclick="toggleFormTo(false); return false;">Login with existing account</button>
+      </form>
+    </div>
+  </body>
+</html>

@@ -13,4 +13,6 @@ StreamMe: An easy way to go live!
 2. Setup the `REDIS_HOST` environment variable with the proper hostname or IP address for the redis server.
 3. Setup the `REDIS_PORT` environment variable with the proper port number for the redis server.
 4. Setup the `PORT` environment variable to the correct one (80 for http & 443 for https).
-5. Deploy application to desired location using git.
+5. Setup the `AZURE_STORAGE_AUTH` environment variable with connection string for azure storage.
+6. Setup the `MONGODB_URL` environment variable with mongoDB flavored connection string.
+7. Deploy application to desired location using git.

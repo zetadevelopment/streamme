@@ -3,11 +3,15 @@
     "start": "node server.js"
   },
   "dependencies": {
+    "azure-storage": "^2.8.2",
     "lzjb": "0.0.4",
+    "mongodb": "^3.1.0-beta4",
     "redis": "^2.8.0",
-    "restify": "^6.3.4",
+    "restify": "^6.4.0",
+    "restify-cookies": "^0.2.5",
     "restify-router": "^0.5.0",
     "socket.io": "^2.0.4",
-    "socket.io-redis": "^5.2.0"
+    "socket.io-redis": "^5.2.0",
+    "uuid": "^3.2.1"
   }
 }

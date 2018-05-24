@@ -1,5 +1,7 @@
 const routes = require('./routes');
+const os = require('os');
 const restify = require('restify');
+const CookieParser = require('restify-cookies');
 const socketio = require('socket.io');
 const redisAdapter = require('socket.io-redis');
 
@@ -8,6 +10,26 @@ const ROOT = __dirname;
 // Create restify server with socket.io support.
 let server = restify.createServer();
 let io = socketio.listen(server.server);
+
+// Cookie parser restify.
+server.use(CookieParser.parse);
+
+// Body parser to allow/process uploads
+server.use(restify.plugins.bodyParser({
+  maxBodySize: 10000,
+  mapParams: true,
+  mapFiles: true,
+  overrideParams: false,
+  keepExtensions: true,
+  uploadDir: os.tmpdir(),
+  multiples: true,
+  hash: 'sha1',
+  rejectUnknown: true,
+  requestBodyOnGet: false,
+  reviver: undefined,
+  maxFieldsSize: 2 * 1024 * 1024
+}));
+
 
 // Redis Config
 // TODO: Make this value more dynamic.
